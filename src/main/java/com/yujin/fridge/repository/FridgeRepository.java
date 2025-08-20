@@ -7,12 +7,12 @@ import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class IngredientRepository {
+public class FridgeRepository {
     private final ArrayList<Ingredient> ingredientList = new ArrayList<>();
     private final File file =
             new File("src/main/java/com/yujin/fridge/db/fridgeDB.dat");
 
-    public IngredientRepository() {
+    public FridgeRepository() {
         if(!file.exists()) {
             ArrayList<Ingredient> defaultIngredientList = new ArrayList<>();
             defaultIngredientList.add(new Ingredient(1,"양파", 3, Category.VEGETABLE, LocalDate.of(2025, 8, 30)));
@@ -20,7 +20,23 @@ public class IngredientRepository {
             defaultIngredientList.add(new Ingredient(3,"계란", 12, Category.DAIRY, LocalDate.of(2025, 9, 1)));
 
             saveIngredients(defaultIngredientList);
+        }
 
+        loadIngredients();
+    }
+
+    private void loadIngredients() {
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new BufferedInputStream(new FileInputStream(file)));
+            while (true) {
+                ingredientList.add((Ingredient) ois.readObject());
+            }
+        } catch (EOFException e){
+            System.out.println("냉장고 재료 읽기 완료");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -28,6 +44,9 @@ public class IngredientRepository {
         ObjectOutputStream oos = null;
         try{
             oos = new ObjectOutputStream(new BufferedOutputStream(new FileOutputStream(file)));
+            for(Ingredient ingredient : ingredients) {
+                oos.writeObject(ingredient);
+            }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -39,5 +58,13 @@ public class IngredientRepository {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    public ArrayList<Ingredient> findAllIngredients() {
+        ArrayList<Ingredient> returnList = new ArrayList<>();
+        for(Ingredient ingredient : ingredientList) {
+            returnList.add(ingredient);
+        }
+        return returnList;
     }
 }

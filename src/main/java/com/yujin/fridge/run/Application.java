@@ -1,8 +1,12 @@
 package com.yujin.fridge.run;
 
+import com.yujin.fridge.service.FridgeService;
+
 import java.util.Scanner;
 
 public class Application {
+    private static final FridgeService fs = new FridgeService();
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -18,12 +22,15 @@ public class Application {
             int input = sc.nextInt();
 
             switch(input) {
-                case 1: break;
+                case 1: fs.findAllIngredients();
+                        break;
                 case 2: break;
                 case 3: break;
                 case 4: break;
                 case 5: break;
-                case 9: break;
+                case 9:
+                    System.out.println("신선맨을 종료합니다.");
+                    return;
                 default: break;
             }
         }
