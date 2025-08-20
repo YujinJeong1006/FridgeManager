@@ -4,6 +4,7 @@ import com.yujin.fridge.aggregate.Ingredient;
 import com.yujin.fridge.repository.FridgeRepository;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class FridgeService {
     private final FridgeRepository ingredientRepository;
@@ -17,6 +18,9 @@ public class FridgeService {
             System.out.println("\n-----------------------------------");
             System.out.printf("%-7s | %-5s | %s", "이름", "수량", "유통/소비기한\n");
             System.out.println("----------+-------+----------------");
+
+            Collections.sort(result);
+
             for(Ingredient ingredient : result) {
                 System.out.println(ingredient);
             }
