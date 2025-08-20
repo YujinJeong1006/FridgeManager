@@ -29,4 +29,9 @@ public class FridgeService {
             System.out.println("냉장고가 텅텅 비었습니다.");
         }
     }
+
+    public void findIngredientByName(String s) {
+        Ingredient result = ingredientRepository.findIngredientByName(s);
+        System.out.println(result + "\n");
+    }
 }

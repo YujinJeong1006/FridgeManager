@@ -67,4 +67,13 @@ public class FridgeRepository {
         }
         return returnList;
     }
+
+    public Ingredient findIngredientByName(String s) {
+        for(Ingredient ingredient : ingredientList) {
+            if(ingredient.getName().equals(s)) {
+                return ingredient;
+            }
+        }
+        return null;
+    }
 }
