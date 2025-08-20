@@ -32,6 +32,11 @@ public class FridgeService {
 
     public void findIngredientByName(String s) {
         Ingredient result = ingredientRepository.findIngredientByName(s);
-        System.out.println(result + "\n");
+        if(result != null) {
+            System.out.println(result + "\n");
+        } else {
+            System.out.println(s + "은/는 냉장고에 없습니다.");
+        }
+
     }
 }

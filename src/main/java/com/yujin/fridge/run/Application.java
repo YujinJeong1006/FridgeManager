@@ -39,12 +39,14 @@ public class Application {
 
     }
 
-    private static int search() {
+    private static void search() {
         Scanner sc = new Scanner(System.in);
-        while(true) {
+        boolean running = true;
+        while(running) {
             System.out.println("=== 재료 조회\uD83D\uDD0D ===");
             System.out.println("1. 냉장고 전체 보기");
             System.out.println("2. 특정 재료 검색");
+            System.out.println("3. 메인 메뉴로 돌아가기");
             System.out.print("메뉴를 선택하세요: ");
             int input = sc.nextInt();
             sc.nextLine();
@@ -56,12 +58,14 @@ public class Application {
                 case 2:
                     fs.findIngredientByName(chooseName());
                     break;
+                case 3:
+                    running = false;
+                    break;
                 default:
                     System.out.println("번호를 잘못 입력하셨습니다.");
 
             }
         }
-
     }
 
     private static String chooseName() {
