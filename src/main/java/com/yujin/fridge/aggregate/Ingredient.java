@@ -1,8 +1,9 @@
 package com.yujin.fridge.aggregate;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Ingredient {
+public class Ingredient implements Serializable, Comparable<Ingredient> {
     private int ingredientId;
     private String name;
     private int count;
@@ -69,11 +70,12 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return "Ingredient{" +
-                "name='" + name + '\'' +
-                ", count=" + count +
-                ", category=" + category +
-                ", expiryDate=" + expiryDate +
-                '}';
+        return  String.format("%-7s | %-5d | %s",
+                name, count, expiryDate);
+    }
+
+    @Override
+    public int compareTo(Ingredient o) {
+        return this.expiryDate.compareTo(o.expiryDate);
     }
 }

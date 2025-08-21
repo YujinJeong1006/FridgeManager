@@ -1,8 +1,12 @@
 package com.yujin.fridge.run;
 
+import com.yujin.fridge.service.FridgeService;
+
 import java.util.Scanner;
 
 public class Application {
+    private static final FridgeService fs = new FridgeService();
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         while (true) {
@@ -18,16 +22,55 @@ public class Application {
             int input = sc.nextInt();
 
             switch(input) {
-                case 1: break;
+                case 1:
+                   search();
+                   break;
                 case 2: break;
                 case 3: break;
                 case 4: break;
                 case 5: break;
-                case 9: break;
+                case 9:
+                    System.out.println("신선맨을 종료합니다.");
+                    return;
                 default: break;
             }
         }
 
 
+    }
+
+    private static void search() {
+        Scanner sc = new Scanner(System.in);
+        boolean running = true;
+        while(running) {
+            System.out.println("=== 재료 조회\uD83D\uDD0D ===");
+            System.out.println("1. 냉장고 전체 보기");
+            System.out.println("2. 특정 재료 검색");
+            System.out.println("3. 메인 메뉴로 돌아가기");
+            System.out.print("메뉴를 선택하세요: ");
+            int input = sc.nextInt();
+            sc.nextLine();
+
+            switch(input) {
+                case 1:
+                    fs.findAllIngredients();
+                    break;
+                case 2:
+                    fs.findIngredientByName(chooseName());
+                    break;
+                case 3:
+                    running = false;
+                    break;
+                default:
+                    System.out.println("번호를 잘못 입력하셨습니다.");
+
+            }
+        }
+    }
+
+    private static String chooseName() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("\n재료 이름: ");
+        return sc.nextLine();
     }
 }
